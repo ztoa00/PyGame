@@ -1,0 +1,130 @@
+import pygame
+
+pygame.init()
+
+SIZE = WIDTH, HEIGHT = 1360, 720
+BORDER = 10
+WHITE_COLOR = (255, 255, 255)
+BLACK_COLOR = (0, 0, 0)
+BLUE_COLOR = (0, 0, 255)
+RED_COLOR = (255, 0, 0)
+
+
+# Class for Paddle
+
+
+class Paddle:
+
+    P_WIDTH = 10
+    P_HEIGHT = 100
+    P_VELOCITY = 1
+
+    def __init__(self):
+        self.PY = (HEIGHT - self.P_HEIGHT) // 2
+        self.PVY = self.P_VELOCITY
+
+    def show_paddle(self, paddle_color):
+        pygame.draw.rect(screen, paddle_color, (WIDTH - self.P_WIDTH, self.PY, self.P_WIDTH, self.P_HEIGHT))
+
+    def update_paddle_up(self):
+
+        # Erase the Paddle in Previous Position
+        self.show_paddle(BLACK_COLOR)
+
+        # Updating Paddle Position
+        new_y = self.PY - self.PVY
+
+        if new_y > BORDER:
+            self.PY = new_y
+
+        # Show the Paddle in New Position
+        self.show_paddle(RED_COLOR)
+
+    def update_paddle_down(self):
+        # Erase the Paddle in Previous Position
+        self.show_paddle(BLACK_COLOR)
+
+        # Updating Paddle Position
+        new_y = self.PY + self.PVY
+
+        if new_y < HEIGHT - BORDER - self.P_HEIGHT:
+            self.PY = new_y
+
+        # Show the Paddle in New Position
+        self.show_paddle(RED_COLOR)
+
+
+# class for Ball
+
+
+class Ball(Paddle):
+
+    B_RADIUS = 12
+    B_VELOCITY = 1
+
+    def __init__(self):
+        super().__init__()
+        self.BX = WIDTH - Paddle.P_WIDTH - self.B_RADIUS
+        self.BY = HEIGHT // 2
+        self.BVX = - self.B_VELOCITY
+        self.BVY = - self.B_VELOCITY
+
+    def show_ball(self, ball_color):
+        pygame.draw.circle(screen, ball_color, (self.BX, self.BY), self.B_RADIUS)
+
+    def update_ball(self):
+
+        # Erase the Ball in Previous Position
+        self.show_ball(BLACK_COLOR)
+
+        # Updating Ball Position
+        new_x = self.BX + self.BVX
+        new_y = self.BY + self.BVY
+
+        if new_x < BORDER + self.B_RADIUS:
+            self.BVX = - self.BVX
+
+        if new_y < BORDER + self.B_RADIUS or new_y > HEIGHT - BORDER - self.B_RADIUS:
+            self.BVY = - self.BVY
+
+       if new_x == super.PX
+
+        self.BX = self.BX + self.BVX
+        self.BY = self.BY + self.BVY
+
+        # Show the Ball in New Position
+        self.show_ball(BLUE_COLOR)
+
+
+# Driver Code
+
+
+screen = pygame.display.set_mode(SIZE)
+
+pygame.display.set_caption("PONG_GAME")
+pygame.draw.rect(screen, WHITE_COLOR, (0, 0, WIDTH, BORDER))
+pygame.draw.rect(screen, WHITE_COLOR, (0, 0, BORDER, HEIGHT))
+pygame.draw.rect(screen, WHITE_COLOR, (0, HEIGHT - BORDER, WIDTH, BORDER))
+
+paddle = Paddle()
+paddle.show_paddle(RED_COLOR)
+ball = Ball()
+ball.show_ball(BLUE_COLOR)
+
+
+run = True
+while run:
+    e = pygame.event.poll()
+    if e.type == pygame.QUIT:
+        run = False
+
+    key = pygame.key.get_pressed()
+
+    if key[pygame.K_UP]:
+        paddle.update_paddle_up()
+
+    if key[pygame.K_DOWN]:
+        paddle.update_paddle_down()
+
+    # ball.update_ball()
+    pygame.display.flip()
