@@ -9,7 +9,7 @@ BLACK_COLOR = (0, 0, 0)
 BLUE_COLOR = (0, 0, 255)
 RED_COLOR = (255, 0, 0)
 
-HIT_SOUND = pygame.mixer.Sound('h.wav')
+HIT_SOUND = pygame.mixer.Sound('src/audios/h.wav')
 
 
 # Class for Paddle

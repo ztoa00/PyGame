@@ -47,8 +47,8 @@ for i in range(DIVIDER_INTERVAL_WITH_SPACES):
 PAUSE = False
 
 
-CAR_IMG = pygame.image.load('racecar.png')
-CRASH_SOUND = pygame.mixer.Sound("Crash.wav")
+CAR_IMG = pygame.image.load('src/images/racecar.png')
+CRASH_SOUND = pygame.mixer.Sound("src/audios/Crash.wav")
 
 
 GAME_DISPLAY = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
@@ -183,7 +183,7 @@ def quit_game():
 
 def game_loop():
 
-    pygame.mixer.music.load('Night_Drive.mp3')
+    pygame.mixer.music.load('src/audios/Night_Drive.mp3')
     pygame.mixer.music.play(-1)
 
     global PAUSE
